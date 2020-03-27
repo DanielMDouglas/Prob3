@@ -330,5 +330,62 @@ void BargerPropagator::propagateLinear( int NuFlavor, double pathlength, double 
 }
 
 
-
-	
+extern "C"
+{
+  BargerPropagator* BargerPropagator_new( void ) {
+    return new BargerPropagator;
+  }
+  void BargerPropagator_propagate( BargerPropagator* bp, int nuFlavor ) {
+    bp -> propagate(nuFlavor);
+  }
+  void BargerPropagator_propagateLinear( BargerPropagator* bp, int nuFlavor,
+  					 double pathlength, double Density) {
+    bp -> propagateLinear(nuFlavor, pathlength, Density);
+  }
+  double BargerPropagator_GetVacuumProb( BargerPropagator* bp, int Alpha, int Beta,
+  					 double Energy, double Path) {
+    return bp -> GetVacuumProb(Alpha, Beta, Energy, Path);
+  }
+  void BargerPropagator_DefinePath( BargerPropagator* bp, double cz,
+				    double ProdHeight, bool kSetProfile) {
+    bp -> DefinePath(cz, ProdHeight, kSetProfile);
+  }
+  void BargerPropagator_SetMNS( BargerPropagator* bp,
+  				double x12, double x13, double x23, 
+  				double m21, double mAtm, double delta, 
+  				double Energy_ , bool kSquared, int kNuType ) {
+    bp -> SetMNS(  x12,  x13,  x23, 
+		   m21,  mAtm,  delta, 
+		   Energy_ , kSquared, kNuType );
+  }
+  void BargerPropagator_SetDensityConversion( BargerPropagator* bp, double x ) {
+    bp -> SetDensityConversion( x );
+  }
+  double BargerPropagator_GetProb( BargerPropagator* bp, int nuIn, int nuOut ) {
+    return bp -> GetProb( nuIn, nuOut );
+  }
+  double BargerPropagator_GetPathLength( BargerPropagator* bp ) {
+    return bp -> GetPathLength( );
+  }
+  void BargerPropagator_SetPathLength( BargerPropagator * bp, double x ) {
+    bp -> SetPathLength( x );
+  }
+  void BargerPropagator_SetEnergy ( BargerPropagator * bp, double x ) {
+    bp -> SetEnergy ( x );
+    }
+  void BargerPropagator_SetMatterPathLength( BargerPropagator * bp ) {
+    bp -> SetMatterPathLength( );
+  }
+  void BargerPropagator_SetAirPathLength( BargerPropagator * bp, double x ) {
+    bp -> SetAirPathLength( x );
+  }
+  void BargerPropagator_UseMassEigenstates(  BargerPropagator * bp, bool x ) {
+    bp -> UseMassEigenstates( x );
+  }
+  void BargerPropagator_SetWarningSuppression(  BargerPropagator * bp, bool x ) {
+    bp -> SetWarningSuppression( x );
+  }
+  void BargerPropagator_SetOneMassScaleMode  (  BargerPropagator * bp, bool x)  {  
+    bp ->SetOneMassScaleMode( x );
+  }
+}

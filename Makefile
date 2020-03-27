@@ -2,7 +2,8 @@
 ROOTCFLAGS = `root-config --cflags`
 ROOTLIBS   = `root-config --libs`
 
-CXXFLAGS += -I. -Wall
+CFLAGS += -fPIC
+CXXFLAGS += -I. -Wall -fPIC
 
 
 %.o : %.c
@@ -65,15 +66,17 @@ probAnalytic: probAnalytic.o $(lib3p)
 probAnalytic.o: 
 	$(CXX) -o probAnalytic.o $(ROOTCFLAGS) $(CXXFLAGS) -c probAnalytic.cc
 
+.PHONY: libBargerPropagator.so
+libBargerPropagator.so:
+	$(CXX) -o libBargerPropagator.so $(CXXFLAGS) -shared -W $(OBJS)
 
-	
 .PHONY: all
 all: $(targets)
 	
 	
 .PHONY: clean
 clean:
-	$(RM) $(targets) *.o
+	$(RM) $(targets) *.o *.so *.pyc
 	
 emptyrule:: $(lib3p)
 
