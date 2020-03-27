@@ -1,6 +1,6 @@
 import numpy as np
 
-from BargerPropagator import BargerPropagator
+from Prob3 import BargerPropagator
 
 LengthParam = 0
 ToType = 2

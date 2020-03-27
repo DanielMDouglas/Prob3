@@ -25,7 +25,7 @@ LIBALIAS  = $(LIBBASE)$(TAG)
 LIBNAME   = $(LIBALIAS)_$(VER)
 
 lib3p     = lib$(LIBNAME).a
-
+lib3pso   = lib$(LIBALIAS).so
 
 targets = $(lib3p) probRoot probLinear probAnalytic
 
@@ -34,6 +34,7 @@ $(lib3p) : $(OBJS)
 	$(RM) $@
 	ar clq $@ $(OBJS)
 	ranlib $@
+	$(CXX) -o $(lib3pso) $(CXXFLAGS) -shared -W $(OBJS)
 	
 
 probRoot: probRoot.o $(lib3p) 
@@ -65,10 +66,6 @@ probAnalytic: probAnalytic.o $(lib3p)
 .PHONY: probAnalytic.o
 probAnalytic.o: 
 	$(CXX) -o probAnalytic.o $(ROOTCFLAGS) $(CXXFLAGS) -c probAnalytic.cc
-
-.PHONY: libBargerPropagator.so
-libBargerPropagator.so:
-	$(CXX) -o libBargerPropagator.so $(CXXFLAGS) -shared -W $(OBJS)
 
 .PHONY: all
 all: $(targets)
