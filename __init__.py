@@ -1,7 +1,7 @@
 import ctypes
 import os
 
-lib = ctypes.cdll.LoadLibrary(os.path.join(os.environ["PROB3ROOT"], 'libThreeProb.so'))
+lib = ctypes.cdll.LoadLibrary('libThreeProb.so')
 
 class BargerPropagator(object):
     def __init__(self):

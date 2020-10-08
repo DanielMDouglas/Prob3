@@ -29,13 +29,23 @@ lib3pso   = lib$(LIBALIAS).so
 
 targets = $(lib3p) probRoot probLinear probAnalytic
 
+install_prefix = /usr/lib
 
 $(lib3p) : $(OBJS)
 	$(RM) $@
 	ar clq $@ $(OBJS)
 	ranlib $@
 	$(CXX) -o $(lib3pso) $(CXXFLAGS) -shared -W $(OBJS)
-	
+
+install: $(lib3pso)
+	cp $(lib3pso) $(install_prefix)
+	cp __init__.py $(install_prefix)/python2.7/Prob3.py
+	cp __init__.py $(install_prefix)/python3.7/Prob3.py
+
+uninstall:
+	rm $(install_prefix)/$(lib3pso)
+	rm $(install_prefix)/python2.7/Prob3.py
+	rm $(install_prefix)/python3.7/Prob3.py
 
 probRoot: probRoot.o $(lib3p) 
 	$(RM) $@
