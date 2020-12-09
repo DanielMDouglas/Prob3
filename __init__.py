@@ -1,7 +1,9 @@
 import ctypes
 import os
 
-lib = ctypes.cdll.LoadLibrary('libThreeProb.so')
+dll_name = "libThreeProb.so"
+dllabspath = os.path.dirname(os.path.abspath(__file__)) + os.path.sep + dll_name
+lib = ctypes.cdll.LoadLibrary(dllabspath)
 
 class BargerPropagator(object):
     def __init__(self):
